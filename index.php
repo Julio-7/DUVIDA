@@ -71,10 +71,10 @@ class ActiveRecords
   {
     global $db;
     if($this->id){
-      $stmt = $db->prepare( "UPDATE players SET nome = ?, username = ?, email = ?, senha = ?, data_cadastro = ? WHERE id = ?");//preparando uma instrução SQL para atualizar um registro na tabela 
+      $stmt = $db->prepare( "UPDATE players SET nome = ?, username = ?, email = ?, senha = ?, data_cadastro = ? WHERE id = ?");
       $stmt->execute([$this->nome, $this->username, $this->email, $this->senha, $this->dataa, $this->id]);
-    } else{ //Se o atributo $id não estiver definido
-      $stmt = $db->prepare("INSERT INTO players (nome, username, email, senha, data_cadastro) VALUES (?, ?, ?, ?, ?)");// preparando uma instrução SQL para inserir um novo registro na tabela
+    } else{
+      $stmt = $db->prepare("INSERT INTO players (nome, username, email, senha, data_cadastro) VALUES (?, ?, ?, ?, ?)");
       $stmt->execute([$this->nome, $this->username, $this->email, $this->senha, $this->dataa]);
     }    
   }
@@ -93,8 +93,8 @@ class ActiveRecords
     $stmt->execute([$id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC); 
 
-    if($result){// retornou algum resultado
-      return new ActiveRecords($result['id'], $result['nome'], $result['username'], $result['email'], $result['senha'], $result['data_cadastro']); // cria e retorna um novo obj com os dados recuperados do banco
+    if($result){
+      return new ActiveRecords($result['id'], $result['nome'], $result['username'], $result['email'], $result['senha'], $result['data_cadastro']); 
     } else{
         return null;
     }
